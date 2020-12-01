@@ -1,0 +1,8 @@
+var answer_id = "<%= @answer.id %>"
+var vote_count = "<%= @answer.down_votes.size %>"
+jQuery('#unlike-'+answer_id).find('span').text(vote_count)
+<% if params[:undislike] == 'true' %> 
+	jQuery('#unlike-'+answer_id).find('a').attr('href', '/answers/'+answer_id+'/downvote')
+<% else %>
+	jQuery('#unlike-'+answer_id).find('a').attr('href', '/answers/'+answer_id+'/downvote?undislike=true')
+<% end %>

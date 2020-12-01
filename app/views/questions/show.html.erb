@@ -1,0 +1,17 @@
+<div class="container">
+  <div class="row">
+    <div class="col-4"></div>
+    <div class="col-5 jumbotron">
+      <strong class="h5 heading ">Question Title:</strong>
+	    <span><%= @question.question_title %></span><br>
+	    <strong class="h5 heading"> Selected Topics: </strong>
+	    <% @question.topics.each do |topic|%>
+	      <ul>
+	        <li><%= topic.topic_name %></li>
+	      </ul>
+	    <% end %><br>
+	    <%= link_to 'Back', questions_path ,:class => "btn btn-primary " %>
+    </div>
+  </div>
+</div>
+   

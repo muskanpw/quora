@@ -1,0 +1,11 @@
+<% if @answer.errors.present? %>
+  jQuery('.error-msg').show();
+<% else %>
+  var question_id = "<%= @question.id %>";
+  jQuery('#answers-list-'+question_id).children().remove()
+  jQuery('#answers-list-'+question_id).append("<%= escape_javascript(render(:partial => 'answer', :locals=> {answers: @answers})) %>");
+  jQuery('.ans_content_text').val('')
+<% end %>
+  
+
+

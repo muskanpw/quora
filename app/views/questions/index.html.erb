@@ -1,0 +1,24 @@
+<% if current_user.present? %>
+  <div class="container">
+    <h1 class="text-center text-danger "> Quora </h1>
+    <h1>My questions</h1>
+    <table class="table">
+      <tr class="">
+        <th>Title</th>
+        <th colspan="2"></th>
+      </tr>
+      <% @questions.each do |question| %>
+        <tr>
+          <td><%= question.question_title %></td>
+          <td>
+            <%= link_to 'Show', question_path(question), class: 'btn btn-success' %>
+            <%= link_to 'Edit', edit_question_path(question), class: 'btn btn-primary'%>
+            <%= link_to 'Destroy', question_path(question),
+            method: :delete,
+            data: { confirm: 'Are you sure?' }, class: 'btn btn-danger'%>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+<% end %>

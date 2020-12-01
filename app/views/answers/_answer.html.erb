@@ -1,0 +1,39 @@
+<% if answers.present? %>
+    <% answers.each do |ans| %>
+      <br><li> <%= ans.ans_content %></li>
+      <p>
+      <% if ans.photo.present? %> 
+      <%= image_tag ans.photo.url, width: 700 %>
+      <% end %>
+      </p>
+      <div class="row">
+        <div id="like-<%= ans.id%>">
+          <span><%= ans.up_votes.size %></span>
+          <% if ans.up_votes.pluck(:user_id).include?(current_user.id) %> 
+            <%= link_to answer_upvote_path(ans.id, dislike: true), method: :post,remote: true  do %>
+              <i class="far fa-thumbs-up"></i>
+            <% end %>
+          <% else %>
+            <%= link_to answer_upvote_path(ans.id), method: :post,remote: true do %>
+              <i class="far fa-thumbs-up"></i>
+            <% end %>
+          <% end %>
+
+        </div>
+        <div id="unlike-<%= ans.id%>" class="ml-auto">
+          <span><%= ans.down_votes.size %></span>
+          <% if ans.down_votes.pluck(:user_id).include?(current_user.id) %> 
+            <%= link_to answer_downvote_path(ans.id, undislike: true), method: :post,remote: true do %>
+            <i class="far fa-thumbs-down"></i>
+            <% end %>
+          <% else %>
+            <%= link_to answer_downvote_path(ans.id), method: :post,remote: true do %>
+              <i class="far fa-thumbs-down"></i>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+<% else %>
+    <li> No answer yet</li>
+<% end %>

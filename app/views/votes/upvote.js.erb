@@ -1,0 +1,8 @@
+var answer_id = "<%= @answer.id %>"
+var vote_count = "<%= @answer.up_votes.size %>"
+jQuery('#like-'+answer_id).find('span').text(vote_count)
+<% if params[:dislike] == 'true' %> 
+	jQuery('#like-'+answer_id).find('a').attr('href', '/answers/'+answer_id+'/upvote')
+<% else %>
+	jQuery('#like-'+answer_id).find('a').attr('href', '/answers/'+answer_id+'/upvote?dislike=true')
+<% end %>
