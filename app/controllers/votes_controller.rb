@@ -1,5 +1,5 @@
 class VotesController < ApplicationController
-
+  before_action :authenticate_user!
   def upvote
     @answer = Answer.find(params[:answer_id])
     if params[:dislike] == 'true'

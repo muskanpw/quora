@@ -56,3 +56,4 @@ gem 'devise'
 gem 'carrierwave', '~> 2.0'
 gem "letter_opener", :group => :development
 gem 'activeadmin'
+gem 'omniauth-facebook'

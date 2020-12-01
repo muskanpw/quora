@@ -1,5 +1,5 @@
 class TopicsController < ApplicationController
-
+  before_action :authenticate_user!
   def index
     session[:return_to] = nil
   end
