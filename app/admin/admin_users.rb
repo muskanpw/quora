@@ -1,6 +1,7 @@
-ActiveAdmin.register AdminUser do
+ActiveAdmin.register AdminUser do 
+  
   permit_params :email, :password, :password_confirmation
-
+  
   index do
     selectable_column
     id_column
@@ -24,5 +25,12 @@ ActiveAdmin.register AdminUser do
     end
     f.actions
   end
-
+ 
+  
+ 
+  controller do
+    def find_resource
+      scoped_collection.where(id: params[:id]).first!
+    end
+  end
 end
