@@ -12,7 +12,8 @@ class User < ApplicationRecord
   devise :omniauthable, omniauth_providers: %i[facebook]
 
   enum status: [:pending, :approved, :rejected]
-
+  
+  accepts_nested_attributes_for :topics, allow_destroy: true
 
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
