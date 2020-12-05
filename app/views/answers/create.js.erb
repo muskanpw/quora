@@ -6,6 +6,12 @@
   jQuery('#answers-list-'+question_id).append("<%= escape_javascript(render(:partial => 'answer', :locals=> {answers: @answers})) %>");
   jQuery('.ans_content_text').val('')
 <% end %>
-  
+  $('#addNewFormation').click(function(){
+        $('div#formationSet').append('<div class ="FormationsForm"><input type="text" class="input-large" placeholder="Caption">'+
+            '<button class="removeNewFormation" type="button">remove</button>    </div>');
+    });
+  $("div#formationSet").on('click', '.removeNewFormation', function(){
+        $(this).closest('.FormationsForm').remove();
+    });
 
 

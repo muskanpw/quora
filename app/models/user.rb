@@ -1,11 +1,16 @@
 class User < ApplicationRecord
-  # Include default devise modules. Others available are:
-  devise :confirmable, :lockable #, :timeoutable, :trackable and :omniauthable
+  # Associations
   has_many :questions
   has_many :votes 
   has_and_belongs_to_many :topics
-  mount_uploader :image, PictureUploader
+  has_one :image, as: :imageable
   
+  accepts_nested_attributes_for :image, allow_destroy: true
+  accepts_nested_attributes_for :topics, allow_destroy: true
+
+   # Include default devise modules. Others available are:
+  devise :confirmable, :lockable #, :timeoutable, :trackable and :omniauthable
+
   devise :database_authenticatable, :registerable,
     :recoverable, :rememberable, :validatable
   
@@ -13,8 +18,6 @@ class User < ApplicationRecord
 
   enum status: [:pending, :approved, :rejected]
   
-  accepts_nested_attributes_for :topics, allow_destroy: true
-
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.email = auth.info.email

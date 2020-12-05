@@ -25,7 +25,7 @@ ActiveAdmin.register User do
       f.input :email
       f.input :password
       f.input :password_confirmation
-      f.input :image
+      #f.input :image
 
     end
     #f.inputs "Topics" do
@@ -42,14 +42,20 @@ ActiveAdmin.register User do
   scope :pending, group: :status
   scope :approved, group: :status
   scope :rejected, group: :status
-  action_item :reject, only: :show, if: proc { resource.status == 'approved'} do 
+
+  action_item :reject, only: :show, if: proc { resource.status == 'approved' } do 
     link_to "Reject",  reject_user_admin_user_path(resource.id), method: :post
   end
    
-  action_item :approve, only: :show, if: proc { resource.status == 'rejected'} do
+  action_item :approve, only: :show, if: proc { resource.status == 'rejected' } do
     link_to "Approve", approve_user_admin_user_path(resource.id), method: :post
   end
- 
+  
+  action_item :approve, only: :show, if: proc { resource.status ==  'pending'} do
+    link_to "Approve", approve_user_admin_user_path(resource.id), method: :post
+  end
+  
+
   member_action :approve_user, method: :post do
     resource.update_column(:status, 'approved')
     redirect_to resource_path, notice: "User approved successfully"

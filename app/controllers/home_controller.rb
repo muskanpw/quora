@@ -4,6 +4,7 @@ class HomeController < ApplicationController
   
   def index
     @answer = Answer.new
+    #@image = @answer.images.build
     @vote = Vote.new
     @questions = Question.includes(:topics, :answers, answers: :votes).where('topics.id IN (?)', current_user&.topics&.ids).references(:topic)
     session[:status_return_to] = nil

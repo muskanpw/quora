@@ -18,6 +18,6 @@ class AnswersController < ApplicationController
 
   private
     def answer_params
-      params.require(:answer).permit(:ans_content,:photo)
+      params.require(:answer).permit(:ans_content, images_attributes:[:image])
     end
 end

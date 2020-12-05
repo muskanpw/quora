@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_01_112047) do
+ActiveRecord::Schema.define(version: 2020_12_03_094625) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -43,8 +43,16 @@ ActiveRecord::Schema.define(version: 2020_12_01_112047) do
     t.integer "question_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "photo"
     t.index ["question_id"], name: "index_answers_on_question_id"
+  end
+
+  create_table "images", force: :cascade do |t|
+    t.string "image"
+    t.string "imageable_type"
+    t.integer "imageable_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["imageable_type", "imageable_id"], name: "index_images_on_imageable_type_and_imageable_id"
   end
 
   create_table "questions", force: :cascade do |t|
@@ -86,7 +94,6 @@ ActiveRecord::Schema.define(version: 2020_12_01_112047) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "name"
     t.integer "cont_no"
-    t.string "image"
     t.string "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"

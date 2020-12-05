@@ -3,4 +3,5 @@ jQuery(document).ready(function(){
   	console.log(jQuery(this).parent().find('div.ans-block'))
     jQuery(this).parent().find('div.ans-block').toggle()
   })
+  
 })

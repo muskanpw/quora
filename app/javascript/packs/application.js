@@ -10,6 +10,9 @@ require("@rails/activestorage").start()
 window.jQuery = window.$ = require('jquery')
 require("channels")
 require("packs/custom_js")
+require("jquery")
+require("@nathanvda/cocoon")
+
 
 
 

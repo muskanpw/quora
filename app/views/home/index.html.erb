@@ -1,10 +1,12 @@
 <div class="container ">
   <% @questions.each do |que| %>
-    <%= form_with model: @answer, url: question_answers_path(que), id: "my_form",method: 'post', remote: true do |f| %>
+    <% answer = que.answers.new %>
+    <% answer.images.build %>
+
+    <%= form_with model: answer, url: question_answers_path(que), method: 'post', remote: true do |f| %>
       <div class="jumbotron w-75">
         <h5 class="h1 Bootstrap heading"><%= que.question_title %></h5>
         <ul id="answers-list-<%= que.id %>">
-          <!--<span class="h4 Bootstrap heading">Answers</span>-->
           <% if que.answers.present? %>  
             <%= render partial: 'answers/answer', locals: {answers: que.answers } %>
           <% end %>
@@ -12,11 +14,17 @@
         <a href="javascript:void(0)" class="show-hide-answer btn btn-primary">Answer</a>
         <div class="ans-block" style="display: none;"><br>
           <%= f.text_area :ans_content ,:cols => 50, class: 'ans_content_text' %><br>
-          <span class="error-msg text-danger" style="display: none;">Answer can't be blank. </span><br>
-        <div class="field">
-          <%= f.label :photo %>
-          <%= f.file_field :photo %>
-        </div>
+          <span class="error-msg text-danger" style="display: none;">Answer can't be blank. </span>
+          <br>
+          
+          <div id='tasks'>
+            <%= f.fields_for :images do |image| %>
+              <%= render 'image_fields', :f => image %>
+            <% end %>
+            <div class='links'>
+              <%= link_to_add_association 'add image', f, :images %>
+            </div>
+          </div>
           <%= f.submit 'Submit Answer', class: 'btn btn-primary' %><br>
         </div>
 

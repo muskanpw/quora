@@ -1,10 +1,15 @@
 <% if answers.present? %>
     <% answers.each do |ans| %>
+      <% next if ans.new_record? %>
       <br><li> <%= ans.ans_content %></li>
       <p>
-      <% if ans.photo.present? %> 
-      <%= image_tag ans.photo.url, width: 700 %>
+
+      <% if ans.images.present? %> 
+        <% ans.images.each do |image| %>
+          <%= image_tag image.image.url, width: 700 %>
+        <% end %>
       <% end %>
+
       </p>
       <div class="row">
         <div id="like-<%= ans.id%>">

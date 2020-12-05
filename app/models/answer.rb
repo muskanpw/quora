@@ -1,11 +1,15 @@
 class Answer < ApplicationRecord
-  belongs_to :question  
-  #has_many :up_votes, class_name: 'Vote'   , foreign_key: :up_vote_id
-  #has_many :down_votes, class_name: 'Vote' , foreign_key: :down_vote_id
-  has_many :votes 
+  # validations
   validates :ans_content, presence: true
-  mount_uploader :photo, PictureUploader
   
+  # Associations
+  belongs_to :question  
+  has_many :votes 
+  has_many :images, as: :imageable#, inverse_of: :image
+  
+  accepts_nested_attributes_for :images, allow_destroy: true
+  
+  # Callbacks
   after_create :send_notification_user
 
   def up_votes
